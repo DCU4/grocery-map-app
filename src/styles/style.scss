@@ -1,0 +1,62 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+* {
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Avenir', sans-serif;
+  color: #444;
+  background-color: #EEE;
+  padding: 20px;
+}
+
+.directions-list {
+  .product {
+    display: flex;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-bottom: 1px solid rgba(#444,.5);
+    opacity: 0;
+    animation: fade-in .3s ease .3s forwards;
+
+    .product-info {
+      width: 300px;
+      p {
+        &:first-of-type {
+          font-weight: bold;
+        }
+      }
+    }
+    img 
+    {
+      width: 100px;
+      height: auto;
+      // flex:1;
+    }
+  }
+}
+
+form {
+  label {
+    display: block;
+  }
+}
