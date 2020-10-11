@@ -13,7 +13,7 @@ export class List extends Component {
   }
 
   handleChange =  () =>{
-     this.props.onClick();
+    // this.props.onClick();
   }
 
   

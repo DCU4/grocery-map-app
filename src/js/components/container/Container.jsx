@@ -43,8 +43,12 @@ class Container extends Component {
     addToList = (e) => {
       let list = this.state.list;
       let item = e.currentTarget.querySelector('.product-info:nth-of-type(2) p:nth-of-type(2)').innerText;
-      console.log(item)
-      list.push(item);
+      let aisle = e.currentTarget.querySelector('.product-info:nth-of-type(3) p:nth-of-type(2)').innerText;
+      let listItem = {};
+      listItem.item = item;
+      listItem.aisle = aisle;
+      list.push(listItem);
+      console.log(list)
       this.setState({
         list: list
       })
