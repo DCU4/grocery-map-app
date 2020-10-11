@@ -7,7 +7,7 @@ export class List extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      list: '',
+      // list: '',
     }
     
   }
@@ -29,11 +29,16 @@ render() {
   let handleExistence = (item) => {
     return item ? item : 'N/A';
   }
-  let data = this.props.data;
+  let list = this.props.list;
 
     return (
-      <div className="list">
-       <p>Your list</p>
+      <div className="list-wrapper">
+       
+        <ul className="list">
+        {list.map((item,i) => (
+          <li key={i} className="item">{item}</li>
+        ))}
+       </ul>
       </div>
 
     );

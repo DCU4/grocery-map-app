@@ -11,7 +11,7 @@ class Container extends Component {
           data: '',
           search: '',
           listView: true,
-          list: ''
+          list: []
         }
     }
 
@@ -41,7 +41,13 @@ class Container extends Component {
     }
 
     addToList = (e) => {
-
+      let list = this.state.list;
+      let item = e.currentTarget.querySelector('.product-info:nth-of-type(2) p:nth-of-type(2)').innerText;
+      console.log(item)
+      list.push(item);
+      this.setState({
+        list: list
+      })
     }
 
     deleteFromList = (e) => {
@@ -57,29 +63,34 @@ class Container extends Component {
 
     render() {
       let data = this.state.data;
+      let list = this.state.list;
       let listView = this.state.listView;
-      console.log(listView);
-      // const res = this.state.res;
-      // const compare = this.state.compare;
-
-      // // console.log(deg)
-      // if (!this.state.data || data == undefined) {
-      //   return <div className="spinner">Loading Data...<span></span></div>;
-      // }
+      console.log(this.state.list)
       return (
           <main>
             <header>
-              <p onClick={this.handleListView}>{listView ? 'Hide List' : 'Show List'}</p>
+            {listView ? (
+              <div className="menu">
+              <strong>Your list</strong>
+              <p onClick={this.handleListView}>Search Store</p>
+              </div>
+              ) : (
+                <div className="menu">
+                  <p onClick={this.handleListView}>Show List</p>
+                </div>
+               )
+               }
             </header>
             
-            { listView ? (
+            {listView ? (
               <List 
               data={data} 
+              list={list}
               />
             ) : (
               <Search
               data={data}
-              // getData={this.getData}
+              addToList={this.addToList}
               />
             )}
 

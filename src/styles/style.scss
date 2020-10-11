@@ -29,9 +29,17 @@ body {
   padding: 20px;
 }
 
+header {
+  padding-bottom: 20px;;
+  .menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 .search-list {
   .product {
     display: flex;
+    justify-content: space-between;
     padding: 10px 0;
     margin: 10px 0;
     border-bottom: 1px solid rgba(#444,.5);
@@ -39,18 +47,31 @@ body {
     animation: fade-in .3s ease .3s forwards;
 
     .product-info {
-      width: 300px;
+      margin-bottom: 15px;
+      width: 50%;
       p {
         &:first-of-type {
           font-weight: bold;
         }
       }
     }
-    img 
-    {
-      width: 100px;
-      height: auto;
-      // flex:1;
+    .product-image {
+      width:20%;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.list-wrapper {
+  .list {
+    list-style-type: none;
+    .item {
+      padding: 10px;
+      margin: 10px 0;
+      border-bottom: 1px solid rgba(#444,.5);
     }
   }
 }

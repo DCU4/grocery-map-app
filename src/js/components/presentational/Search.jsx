@@ -8,12 +8,16 @@ export class Search extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       search: '',
-      data: ''
+      data: '',
+      searching: false
     }
     
   }
 
   getData = async (event) => {
+    this.setState({
+      searching: true
+    });
     let search = this.state.search;
     event.preventDefault();
     const call = await fetch(`http://localhost:3000/get-data`, {
@@ -26,7 +30,8 @@ export class Search extends Component {
     const data = await call.json();
     console.log('products',data)
     this.setState({
-      data: data
+      data: data,
+      searching: false
     });
   }
 
@@ -43,12 +48,15 @@ export class Search extends Component {
     
   // }
 
-render() {
-  let handleExistence = (item) => {
-    return item ? item : 'N/A';
-  }
-  let data = this.state.data;
-
+  render() {
+    let handleExistence = (item) => {
+      return item ? item : 'N/A';
+    }
+    let data = this.state.data;
+    let searching = this.state.searching;
+    if (searching) {
+      return <div className="spinner">Loading Data...<span></span></div>;
+    }
     return (
       <div className="search-list">
         <form id="search" onSubmit={this.getData}>
@@ -58,28 +66,33 @@ render() {
         <p>Search Results</p>
         {data && data.data.map((d,i)=> {
           return (
-            // add onclick event for adding to list
-          <div key={i} className="product">
-            <div className="product-info">
-              <p>Brand:</p>
-              <p>{d.brand}</p>
+          <div key={i} className="product" onClick={this.props.addToList}>
+            <div className="product-info-wrapper">
+              <div className="product-info">
+                <p>Brand:</p>
+                <p>{d.brand}</p>
+              </div>
+              <div className="product-info">
+                <p>Product:</p>
+                <p>{handleExistence(d.description)}</p>
+              </div>
+
+              {d.aisleLocations[0] ? 
+              <div className="product-info">
+                <p>Location: {handleExistence(d.aisleLocations[0].description)}</p>
+                <p>Aisle Number: {handleExistence(d.aisleLocations[0].number)}</p>
+                <p>Shelf Number: {handleExistence(d.aisleLocations[0].shelfNumber)}</p>
+              </div>
+              :
+              <div className="product-info">
+                <p>no aisle info</p>
+              </div>
+              }
+              {/* check and change if it is on your list already */}
+              <strong>Add To List +</strong>
             </div>
-            <div className="product-info">
-              <p>Product:</p>
-              <p>{handleExistence(d.description)}</p>
-            </div>
-            {d.aisleLocations[0] ? 
-            <div className="product-info">
-            <p>Location: {handleExistence(d.aisleLocations[0].description)}</p>
-            <p>Aisle Number: {handleExistence(d.aisleLocations[0].number)}</p>
-            <p>Shelf Number: {handleExistence(d.aisleLocations[0].shelfNumber)}</p>
-            </div>
-            :
-            <div className="product-info">
-              <p>no aisle info</p>
-            </div>
-            }
-            <div className="product-info">
+
+            <div className="product-image">
               {
               d.images.map((img,i)=> {
                 let src = img.sizes.filter(size => (size.size == 'xlarge'));
@@ -89,7 +102,6 @@ render() {
               })
             }
             </div>
-          
 
           </div>
           );
