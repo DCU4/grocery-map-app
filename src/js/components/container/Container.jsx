@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Directions } from "../presentational/Directions.jsx";
+import { Search } from "../presentational/Search.jsx";
+import { List } from "../presentational/List.jsx";
 
 
 class Container extends Component {
@@ -8,30 +9,13 @@ class Container extends Component {
         super(props);
         this.state = { 
           data: '',
-          search: ''
+          search: '',
+          listView: true,
+          list: ''
         }
     }
 
-    getData = async (event) => {
-      let search = this.state.search;
-      event.preventDefault();
-      const call = await fetch(`http://localhost:3000/get-data`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({search:search})
-      });
-      const data = await call.json();
-      console.log('products',data)
-      this.setState({
-        data: data
-      });
-    }
-
     getLocation = async () => {
-      // let search = this.state.search;/
-      // event.preventDefault();
       const call = await fetch(`http://localhost:3000/get-location`, {
         method: 'POST',
         headers: {
@@ -46,10 +30,25 @@ class Container extends Component {
       // });
     }
 
-    handleChange = (event) => {
-      this.setState({search: event.target.value});
+    
+
+    handleListView = () => {
+      let listView = this.state.listView;
+      let handle = listView ? false : true;
+      this.setState({
+        listView: handle
+      });
+    }
+
+    addToList = (e) => {
+
+    }
+
+    deleteFromList = (e) => {
+
     }
     
+
 
     componentDidMount () {
       console.log('mount');
@@ -58,6 +57,8 @@ class Container extends Component {
 
     render() {
       let data = this.state.data;
+      let listView = this.state.listView;
+      console.log(listView);
       // const res = this.state.res;
       // const compare = this.state.compare;
 
@@ -67,13 +68,20 @@ class Container extends Component {
       // }
       return (
           <main>
-            <form id="search" onSubmit={this.getData}>
-              <label htmlFor="search">Search Fred's in Bend, Oregon</label>
-              <input id="search" value={this.state.value} type="search" name="search" onChange={this.handleChange} />
-            </form>
-            <Directions
-            data={data}
-            />
+            <header>
+              <p onClick={this.handleListView}>{listView ? 'Hide List' : 'Show List'}</p>
+            </header>
+            
+            { listView ? (
+              <List 
+              data={data} 
+              />
+            ) : (
+              <Search
+              data={data}
+              // getData={this.getData}
+              />
+            )}
 
           </main>
 

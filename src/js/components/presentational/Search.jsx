@@ -1,40 +1,64 @@
 import React, { Component } from 'react';
 
 
-export class Directions extends Component {
+export class Search extends Component {
   
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      changeChart: false,
+      search: '',
+      data: ''
     }
     
   }
 
-  handleChange =  () =>{
-     this.props.onClick();
+  getData = async (event) => {
+    let search = this.state.search;
+    event.preventDefault();
+    const call = await fetch(`http://localhost:3000/get-data`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({search:search})
+    });
+    const data = await call.json();
+    console.log('products',data)
+    this.setState({
+      data: data
+    });
   }
 
+
+  handleChange = event => {
+    this.setState({search: event.target.value});
+  }
   
-  componentDidUpdate(){
-  }
+  // componentDidUpdate(){
+  // }
 
-  componentDidMount () {
-    // console.log('mount');
+  // componentDidMount () {
+  //   // console.log('mount');
     
-  }
+  // }
 
 render() {
   let handleExistence = (item) => {
     return item ? item : 'N/A';
   }
-  let data = this.props.data;
+  let data = this.state.data;
 
-    return data && (
-      <div className="directions-list">
-        {data.data.map((d,i)=> {
+    return (
+      <div className="search-list">
+        <form id="search" onSubmit={this.getData}>
+          <label htmlFor="search">Search Fred's in Bend, Oregon</label>
+          <input id="search" value={this.state.value} type="search" name="search" onChange={this.handleChange} />
+        </form>
+        <p>Search Results</p>
+        {data && data.data.map((d,i)=> {
           return (
+            // add onclick event for adding to list
           <div key={i} className="product">
             <div className="product-info">
               <p>Brand:</p>
