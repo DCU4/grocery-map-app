@@ -27,10 +27,13 @@ body {
   color: #444;
   background-color: #EEE;
   padding: 20px;
+  font-size: 1.5em;
 }
 
 header {
-  padding-bottom: 20px;;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #DDD;
   .menu {
     display: flex;
     justify-content: space-between;
@@ -45,13 +48,17 @@ header {
     border-bottom: 1px solid rgba(#444,.5);
     opacity: 0;
     animation: fade-in .3s ease .3s forwards;
-
-    .product-info {
-      margin-bottom: 15px;
-      width: 50%;
-      p {
-        &:first-of-type {
-          font-weight: bold;
+    .product-info-wrapper{
+      .add-item {
+        cursor: pointer;
+      } 
+      .product-info {
+        margin-bottom: 15px;
+        
+        p {
+          &:first-of-type {
+            font-weight: bold;
+          }
         }
       }
     }
@@ -72,6 +79,9 @@ header {
       padding: 10px;
       margin: 10px 0;
       border-bottom: 1px solid rgba(#444,.5);
+      display: flex;
+      justify-content: space-between;
+      font-size: 1em;
     }
   }
 }

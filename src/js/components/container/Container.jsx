@@ -8,7 +8,7 @@ class Container extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-          data: '',
+          // data: '',
           search: '',
           listView: true,
           list: []
@@ -66,7 +66,7 @@ class Container extends Component {
     }
 
     render() {
-      let data = this.state.data;
+      // let data = this.state.data;
       let list = this.state.list;
       let listView = this.state.listView;
       console.log(this.state.list)
@@ -88,12 +88,13 @@ class Container extends Component {
             
             {listView ? (
               <List 
-              data={data} 
+              // data={data} 
               list={list}
               />
             ) : (
               <Search
-              data={data}
+              // data={data}
+              list={list}
               addToList={this.addToList}
               />
             )}

@@ -52,8 +52,10 @@ export class Search extends Component {
     let handleExistence = (item) => {
       return item ? item : 'N/A';
     }
+    let list = this.props.list;
     let data = this.state.data;
     let searching = this.state.searching;
+    console.log(list);
     if (searching) {
       return <div className="spinner">Loading Data...<span></span></div>;
     }
@@ -65,6 +67,7 @@ export class Search extends Component {
         </form>
         <p>Search Results</p>
         {data && data.data.map((d,i)=> {
+          let found = list.some(l => l.item == d.description)
           return (
           <div key={i} className="product" onClick={this.props.addToList}>
             <div className="product-info-wrapper">
@@ -88,19 +91,16 @@ export class Search extends Component {
                 <p>no aisle info</p>
               </div>
               }
-              {/* check and change if it is on your list already */}
-              <strong>Add To List +</strong>
+              <strong className="add-item">{found ? 'Added to List' : 'Add To List +'}</strong>
             </div>
 
             <div className="product-image">
-              {
-              d.images.map((img,i)=> {
+            {d.images.map((img,i)=> {
                 let src = img.sizes.filter(size => (size.size == 'xlarge'));
-                 return img.featured && src[0] &&
-                 <img key={i} src={src[0].url } />
+                  return img.featured && src[0] &&
+                  <img key={i} src={src[0].url } />
                   
-              })
-            }
+              })}
             </div>
 
           </div>

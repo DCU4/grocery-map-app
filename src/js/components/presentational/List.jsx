@@ -30,14 +30,15 @@ render() {
     return item ? item : 'N/A';
   }
   let list = this.props.list;
-
+  list.sort();
     return (
       <div className="list-wrapper">
-       
         <ul className="list">
-        {list.map((item,i) => (
-          <li key={i} className="item">{item}</li>
-        ))}
+        {list.length > 0 ? list.map((item,i) => (
+          <li key={i} className="item"><span>{item.item}</span><span>{item.aisle}</span></li>
+        )) : (
+          <p>No items in your list</p>
+        )}
        </ul>
       </div>
 
