@@ -1,108 +1,143 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Search } from "../presentational/Search.jsx";
-import { List } from "../presentational/List.jsx";
+import { Header } from "../presentational/Header.jsx";
+import { SingleList } from "../presentational/SingleList.jsx";
+import { AllLists } from "../presentational/AllLists.jsx";
 
 
 class Container extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-          // data: '',
-          search: '',
-          listView: true,
-          list: []
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      // data: '',
+      search: '',
+      singleListView: false,
+      list: [],
+      listId: '',
+      addToList: false
     }
+  }
 
-    getLocation = async () => {
-      const call = await fetch(`http://localhost:3000/get-location`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // body: JSON.stringify({search:search})
-      });
-      const data = await call.json();
-      console.log('location',data);
-      // this.setState({
-      //   data: data
-      // });
-    }
-
+  handleSearchView = () => {
     
+    let addToList = this.state.addToList;
+    let handle = addToList ? true : false;
+    console.log(addToList);
+    this.setState({
+      addToList: true
+    });
+  }
 
-    handleListView = () => {
-      let listView = this.state.listView;
-      let handle = listView ? false : true;
-      this.setState({
-        listView: handle
-      });
-    }
+  getLocation = async () => {
+    const call = await fetch(`http://localhost:3000/get-location`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // body: JSON.stringify({search:search})
+    });
+    const data = await call.json();
+    console.log('location', data);
+    // this.setState({
+    //   data: data
+    // });
+  }
 
-    addToList = (e) => {
-      let list = this.state.list;
-      let item = e.currentTarget.querySelector('.product-info:nth-of-type(2) p:nth-of-type(2)').innerText;
-      let aisle = e.currentTarget.querySelector('.product-info:nth-of-type(3) p:nth-of-type(2)').innerText;
-      let listItem = {};
-      listItem.item = item;
-      listItem.aisle = aisle;
-      list.push(listItem);
-      console.log(list)
-      this.setState({
-        list: list
-      })
-    }
+  
 
-    deleteFromList = (e) => {
-
-    }
+  // create list
+  createList = async () => {
+    console.log('create list')
     
+    // create new list 
+    // open SingleList with Title already filled - first line, bold
+
+    const call = await fetch(`http://localhost:3000/create-list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // body: JSON.stringify({search:search})
+    });
+    const data = await call.json();
+    console.log('list created', data);
+    
+    data && this.setState({
+      singleListView: true
+    });
+  }
 
 
-    componentDidMount () {
-      console.log('mount');
-      this.getLocation();
-    }
 
-    render() {
-      // let data = this.state.data;
-      let list = this.state.list;
-      let listView = this.state.listView;
-      console.log(this.state.list)
-      return (
-          <main>
-            <header>
-            {listView ? (
-              <div className="menu">
-              <strong>Your list</strong>
-              <p onClick={this.handleListView}>Search Store</p>
-              </div>
-              ) : (
-                <div className="menu">
-                  <p onClick={this.handleListView}>Show List</p>
-                </div>
-               )
-               }
-            </header>
-            
-            {listView ? (
-              <List 
-              // data={data} 
-              list={list}
-              />
-            ) : (
-              <Search
-              // data={data}
-              list={list}
-              addToList={this.addToList}
-              />
-            )}
+  handleListView = () => {
+    let singleListView = this.state.singleListView;
+    let handle = singleListView ? true : false;
+    this.setState({
+      singleListView: false
+    });
+  }
 
-          </main>
+  showSingleNote = e => {
+    console.log(e.currentTarget.id);
+    this.setState({
+      singleListView: true,
+      listId: e.currentTarget.id
+    });
+  }
 
-        );
-    }
+
+ 
+
+
+
+  deleteFromList = (e) => {
+
+  }
+
+
+
+  componentDidMount() {
+    console.log('mount');
+
+  }
+
+  render() {
+    // let data = this.state.data;
+    let list = this.state.list;
+    let listId = this.state.listId;
+    let addToList = this.state.addToList;
+    let singleListView = this.state.singleListView;
+    return (
+      <main>
+        <Header 
+          singleListView={singleListView}
+          createList={this.createList}
+          handleListView={this.handleListView}
+          handleSearchView={this.handleSearchView}
+        />
+        
+          
+        {singleListView == true ? (
+          
+          <SingleList
+          // data={data} 
+          list={list}
+          listId={listId}
+          addToList={addToList}
+          />
+        
+        ) : (
+
+          <AllLists 
+          showSingleNote={this.showSingleNote}
+          />
+        
+        )}
+
+      </main>
+
+    );
+  }
 }
 export default Container;
 
