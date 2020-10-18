@@ -9,10 +9,22 @@ export class Search extends Component {
     this.state = {
       search: '',
       data: '',
-      searching: false
+      searching: false,
+      listId: ''
     }
     
   }
+
+
+  // to check search results based on the list you are adding to
+  getSingleListData = () => {
+    let listId = this.props.listId;
+  }
+
+  // favorite items
+
+  // previously added items 
+  
 
   getData = async (event) => {
     this.setState({
@@ -54,8 +66,9 @@ export class Search extends Component {
     }
     let list = this.props.list;
     let data = this.state.data;
+    let found = true;
     let searching = this.state.searching;
-    console.log(list);
+    console.log(data);
     if (searching) {
       return <div className="spinner">Loading Data...<span></span></div>;
     }
@@ -65,10 +78,12 @@ export class Search extends Component {
           <label htmlFor="search">Search Fred's in Bend, Oregon</label>
           <input id="search" value={this.state.value} type="search" name="search" onChange={this.handleChange} />
         </form>
-        <p>Search Results</p>
         {data && data.data.map((d,i)=> {
-          let found = list.some(l => l.item == d.description)
+          // let found = list.some(l => l.item == d.description)
+
           return (
+        <>
+        <p>Search Results</p>
           <div key={i} className="product" onClick={this.props.addToList}>
             <div className="product-info-wrapper">
               <div className="product-info">
@@ -104,10 +119,11 @@ export class Search extends Component {
             </div>
 
           </div>
+          </>
           );
         })}
       </div>
-
+      
     );
   }
 }
