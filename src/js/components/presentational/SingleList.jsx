@@ -22,26 +22,50 @@ export class SingleList extends Component {
     const data = await call.json();
     console.log('single list',data);
     this.setState({
-      list: data
+      list: data,
+      added: false
     });
 
   }
 
-  addToList = (e) => {
+  addToList = async (e) => {
     // post request to add to a list
+    e.preventDefault();
+    
 
-
-    let list = this.state.list;
+    // let list = this.state.list;
     let item = e.currentTarget.querySelector('.product-info:nth-of-type(2) p:nth-of-type(2)').innerText;
     let aisle = e.currentTarget.querySelector('.product-info:nth-of-type(3) p:nth-of-type(2)').innerText;
     let listItem = {};
     listItem.item = item;
     listItem.aisle = aisle;
-    list.push(listItem);
-    console.log(list)
+    // list.push(listItem);
+    // console.log(list)
+    // this.setState({
+    //   list: list
+    // })
+    // let form = document.querySelector('')
+    // let data = 
+    console.log(e.currentTarget)
+    let id = e.currentTarget.dataset.listid;
+    console.log(listItem)
+    let url = 'http://localhost:3000/' + id + '?_method=PUT';
+    const call = await fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      // headers: {
+      //   "Content-Type": "application/x-www-form-urlencoded"
+      // },
+      // body: new FormData(e.currentTarget)
+      body: JSON.stringify({list:listItem})
+    });
+    const data = await call.json();
+    console.log('updated list', data);
     this.setState({
-      list: list
-    })
+      added: true
+    });
   }
   
   componentDidUpdate(){
@@ -77,8 +101,9 @@ render() {
             />
         ) : (
       <ul className="list">
+        {/* {console.log(list.list)} */}
+        {list.list.length > 0 ? list.list.map((item,i) => (
         
-        {list.length > 0 ? list.map((item,i) => (
           <li key={i} className="item"><span>{item.item}</span><span>{item.aisle}</span></li>
         )) : (
           <p>No items in your list</p>

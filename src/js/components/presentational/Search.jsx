@@ -65,10 +65,12 @@ export class Search extends Component {
       return item ? item : 'N/A';
     }
     let list = this.props.list;
+    let listId = this.props.listId;
     let data = this.state.data;
-    let found = true;
+    // let found = true;
     let searching = this.state.searching;
-    console.log(data);
+
+    console.log('search list',list);
     if (searching) {
       return <div className="spinner">Loading Data...<span></span></div>;
     }
@@ -79,12 +81,14 @@ export class Search extends Component {
           <input id="search" value={this.state.value} type="search" name="search" onChange={this.handleChange} />
         </form>
         {data && data.data.map((d,i)=> {
-          // let found = list.some(l => l.item == d.description)
+          let found = list.list.some(l => l.item == d.description)
 
           return (
-        <>
+        <div className="product-wrapper" key={i} >
         <p>Search Results</p>
-          <div key={i} className="product" onClick={this.props.addToList}>
+          <form data-listid={listId}  className="product" onSubmit={this.props.addToList}>
+            <input type="hidden" name="item" value={d.description} />
+            <input type="hidden" name="aisle" value={d.aisleLocations[0] ? d.aisleLocations[0].number : ''} />
             <div className="product-info-wrapper">
               <div className="product-info">
                 <p>Brand:</p>
@@ -106,7 +110,7 @@ export class Search extends Component {
                 <p>no aisle info</p>
               </div>
               }
-              <strong className="add-item">{found ? 'Added to List' : 'Add To List +'}</strong>
+              <button><strong className="add-item">{found ? 'Added to List' : 'Add To List +'}</strong></button>
             </div>
 
             <div className="product-image">
@@ -118,8 +122,8 @@ export class Search extends Component {
               })}
             </div>
 
+          </form>
           </div>
-          </>
           );
         })}
       </div>
