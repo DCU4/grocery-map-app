@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Header } from "../presentational/Header.jsx";
 import { SingleList } from "../presentational/SingleList.jsx";
+import { LocationSearch } from "../presentational/LocationSearch.jsx";
 import { AllLists } from "../presentational/AllLists.jsx";
 
 
@@ -14,17 +15,17 @@ class Container extends Component {
       singleListView: false,
       list: [],
       listId: '',
-      addToList: false
+      addToList: false,
+      locationSearch: false,
+      newList: ''
     }
   }
 
   handleSearchView = () => {
-    
     let addToList = this.state.addToList;
-    let handle = addToList ? true : false;
-    console.log(addToList);
+    let handle = !addToList ? true : false;
     this.setState({
-      addToList: true
+      addToList: handle
     });
   }
 
@@ -44,26 +45,37 @@ class Container extends Component {
   }
 
   
+  // handle location search view
+  handleLocationSearchView = () => {
+    let locationSearch = this.state.locationSearch;
+    let handle = !locationSearch ? true : false;
+    this.setState({
+      locationSearch: handle,
+      singleListView: true
+    });
+  }
+
 
   // create list
-  createList = async () => {
+  createList = async (e) => {
     console.log('create list')
     
     // create new list 
     // open SingleList with Title already filled - first line, bold
-
+    let locationId = e.currentTarget.id;
     const call = await fetch(`http://localhost:3000/create-list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      // body: JSON.stringify({search:search})
+      body: JSON.stringify({locationId:locationId})
     });
     const data = await call.json();
     console.log('list created', data);
     
     data && this.setState({
-      singleListView: true
+      singleListView: true,
+      newList: data
     });
   }
 
@@ -71,9 +83,9 @@ class Container extends Component {
 
   handleListView = () => {
     let singleListView = this.state.singleListView;
-    let handle = singleListView ? true : false;
+    let handle = !singleListView ? true : false;
     this.setState({
-      singleListView: false
+      singleListView: handle
     });
   }
 
@@ -105,26 +117,37 @@ class Container extends Component {
     // let data = this.state.data;
     let list = this.state.list;
     let listId = this.state.listId;
+    let newList = this.state.newList;
     let addToList = this.state.addToList;
+    let locationSearch = this.state.locationSearch;
     let singleListView = this.state.singleListView;
     return (
       <main>
         <Header 
           singleListView={singleListView}
+          addToList={addToList}
           createList={this.createList}
           handleListView={this.handleListView}
           handleSearchView={this.handleSearchView}
+          handleLocationSearchView={this.handleLocationSearchView}
         />
         
           
         {singleListView == true ? (
-          
-          <SingleList
+          locationSearch ? (
+          <LocationSearch 
+            createList={this.createList}
+          />
+        ) : (
+        <SingleList
           // data={data} 
           list={list}
           listId={listId}
           addToList={addToList}
+          newList={newList}
           />
+        )
+          
         
         ) : (
 
