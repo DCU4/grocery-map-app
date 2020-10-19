@@ -27,16 +27,23 @@ body {
   color: #444;
   background-color: #EEE;
   padding: 20px;
-  font-size: 1.5em;
+  font-size: 1.25em;
 }
 
 header {
   padding-bottom: 20px;
   margin-bottom: 10px;
-  border-bottom: 1px solid #DDD;
+
+  border-bottom: 1px solid rgba(#444,.5);;
   .menu {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    .menu-items{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
   }
 }
 .search-list {
@@ -73,16 +80,37 @@ header {
 }
 
 .list-wrapper {
-  .list {
-    list-style-type: none;
-    .item {
-      padding: 10px;
-      margin: 10px 0;
-      border-bottom: 1px solid rgba(#444,.5);
-      display: flex;
-      justify-content: space-between;
-      font-size: 1em;
+  .list-header {
+    display: flex;
+    justify-content: space-between;
+    > p {
+      width: 50%;
     }
+    input {
+      width: 50%;
+      background-color: transparent;
+      border: none;
+      font-size: 1em;
+      color: #444;
+      font-weight: bolder;
+      &::placeholder {
+        color: #444;
+      }
+    }
+  }
+}
+
+ul {
+  list-style-type: none;
+  li {
+    padding: 10px 0;
+    margin: 10px 0;
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    width: 100%;
+    
   }
 }
 
