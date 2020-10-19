@@ -10,7 +10,8 @@ export class Search extends Component {
       search: '',
       data: '',
       searching: false,
-      listId: ''
+      listId: '',
+      location: false
     }
     
   }
@@ -19,25 +20,45 @@ export class Search extends Component {
   // to check search results based on the list you are adding to
   getSingleListData = () => {
     let listId = this.props.listId;
+    
   }
 
   // favorite items
 
   // previously added items 
   
+  getLocation = async () => {
+    let locationId = this.props.locationId;
+    const call = await fetch(`http://localhost:3000/get-single-location`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({locationId: locationId})
+    });
+    const data = await call.json();
+    this.setState({
+      location: data
+    });
+  }
 
   getData = async (event) => {
     this.setState({
       searching: true
     });
     let search = this.state.search;
+    let locationId = this.props.locationId;
+    console.log(search, locationId);
     event.preventDefault();
     const call = await fetch(`http://localhost:3000/get-data`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({search:search})
+      body: JSON.stringify({
+        search: search,
+        locationId: locationId
+      })
     });
     const data = await call.json();
     console.log('products',data)
@@ -51,14 +72,14 @@ export class Search extends Component {
   handleChange = event => {
     this.setState({search: event.target.value});
   }
-  
-  // componentDidUpdate(){
-  // }
 
-  // componentDidMount () {
-  //   // console.log('mount');
-    
-  // }
+  componentDidMount() {
+    this.getLocation();
+  }
+  
+  componentWillUnmount () {
+    this.props.showList();
+  }
 
   render() {
     let handleExistence = (item) => {
@@ -67,20 +88,24 @@ export class Search extends Component {
     let list = this.props.list;
     let listId = this.props.listId;
     let data = this.state.data;
-    // let found = true;
     let searching = this.state.searching;
-
-    console.log('search list',list);
+    let location = this.state.location;
+    console.log('search list',data);
     if (searching) {
       return <div className="spinner">Loading Data...<span></span></div>;
+    }
+    if(!location) {
+
+      return <div className="spinner">Loading Location...<span></span></div>;
     }
     return (
       <div className="search-list">
         <form id="search" onSubmit={this.getData}>
-          <label htmlFor="search">Search Fred's in Bend, Oregon</label>
-          <input id="search" value={this.state.value} type="search" name="search" onChange={this.handleChange} />
+        
+          <label htmlFor="search">Search {location.data.chain} in {location.data.address.city}, {location.data.address.state}</label>
+          <input value={this.state.value} type="search" name="search" onChange={this.handleChange} />
         </form>
-        {data && data.data.map((d,i)=> {
+        {data && data.data && data.data.map((d,i)=> {
           let found = list.list.some(l => l.item == d.description)
 
           return (
@@ -110,7 +135,13 @@ export class Search extends Component {
                 <p>no aisle info</p>
               </div>
               }
-              <button><strong className="add-item">{found ? 'Added to List' : 'Add To List +'}</strong></button>
+              {found ? (
+
+                <strong className="add-item">On My List</strong>
+              ) : (
+
+                <button><strong className="add-item">Add To List +</strong></button>
+              )}
             </div>
 
             <div className="product-image">
