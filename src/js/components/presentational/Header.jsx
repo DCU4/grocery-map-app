@@ -8,20 +8,29 @@ export class Header extends Component {
 
   render() {
     let singleListView = this.props.singleListView;
-
+    let addToList = this.props.addToList;
     // we need to check if the yourlists is showing
     // 
     return (
       <header>
           {singleListView ? (
             <div className="menu">
-              <strong onClick={this.props.handleListView}>All lists</strong>
-              <p onClick={this.props.handleSearchView}>Add to this list</p>
+              {addToList ? (
+                <div className="menu-items">
+                  <strong onClick={this.props.handleSearchView}>View List</strong>
+                  {/* <p onClick={this.props.handleSearchView}>Add to this list</p> */}
+                </div>
+              ) : (
+                <div className="menu-items">
+                  <strong onClick={this.props.handleListView}>All lists</strong>
+                  <p onClick={this.props.handleSearchView}>Add to this list</p>
+                </div>
+              )}
             </div>
           ) : (
               <div className="menu">
                 <strong>Your Lists</strong>
-                <p onClick={this.props.createList}>New List</p>
+                <p onClick={this.props.handleLocationSearchView}>New List</p>
               </div>
             )
           }
