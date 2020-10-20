@@ -13,8 +13,18 @@ const secret = '6iWG5ZIjtsxFtG8C9QFh7PKnrWBJ0KkgnvQT0JTN';
 const client_id = 'dylanjamesconnor-f8de547ab6bccbcb3b53db692a4908148136469803730783131';
 let scope = 'product.compact';
 
-mongoose.connect('mongodb://localhost:27017/lists', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost:27017/lists', { useNewUrlParser: true });
 // mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://dc:VamosCadbury4!@cluster0.px8ou.mongodb.net/lists?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  // const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 
 app.set('view engine', 'ejs')
 app.use(cors());
