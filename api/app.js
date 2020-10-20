@@ -14,10 +14,11 @@ const client_id = 'dylanjamesconnor-f8de547ab6bccbcb3b53db692a490814813646980373
 let scope = 'product.compact';
 
 // mongoose.connect('mongodb://localhost:27017/lists', { useNewUrlParser: true });
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://dc:VamosCadbury4!@cluster0.px8ou.mongodb.net/lists?retryWrites=true&w=majority";
+mongoose.connect(uri, { useNewUrlParser: true });
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   // const collection = client.db("test").collection("devices");
