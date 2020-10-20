@@ -34,7 +34,7 @@ app.use(methodOverride('_method'));
 
 
 // your list page
-app.get('/', cors(), function (req, res, next) {
+app.get('/', function (req, res, next) {
   //Get all kees from DB -- find.({}) means ALL kees
 
   List.find({}, function (err, allLists) {
