@@ -52,8 +52,8 @@ export class Search extends Component {
     let search = this.state.search;
     let locationId = this.props.locationId;
     event.preventDefault();
-    let url = 'https://grocery-map-app.herokuapp.com/get-data'
-    // let url = 'http://localhost:3000/get-data'
+    let url = 'https://grocery-map-app.herokuapp.com/get-data';
+    // let url = 'http://localhost:3000/get-data';
     const call = await fetch(url, {
       method: 'POST',
       headers: {
