@@ -96,6 +96,9 @@ export class SingleList extends Component {
     }
 
     let date = new Date(newList ? newList.created : list.created)
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDate();
     return (
       <div className="list-wrapper">
         {addToList ? (
@@ -112,7 +115,7 @@ export class SingleList extends Component {
                 placeholder={newList ? newList.title : (title != '' ? title : list.title)}
               />
 
-              <p>{date.toDateString()}</p>
+              <p>{month+1}/{day}/{year}</p>
             </div>
           )}
 
