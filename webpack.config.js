@@ -3,7 +3,7 @@ module.exports = {
   entry: ['babel-polyfill','./src/app.js'],
   output: {
     path: __dirname + '/docs',
-    publicPath: ''
+    publicPath: '/'
   },
   module: {
     rules: [
