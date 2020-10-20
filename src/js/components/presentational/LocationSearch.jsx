@@ -17,7 +17,9 @@ export class LocationSearch extends Component {
       searching: true
     });
     let zipcode = this.state.zipcode;
-    const call = await fetch(`http://localhost:3000/get-locations`, {
+    let url = 'https://grocery-map-app.herokuapp.com/get-locations'
+    // let url = 'http://localhost:3000/get-locations'
+    const call = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

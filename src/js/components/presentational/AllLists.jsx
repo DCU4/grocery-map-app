@@ -13,7 +13,9 @@ export class AllLists extends Component {
   }
 
   getYourLists = async () => {
-    const call = await fetch(`http://localhost:3000/`);
+    let url = 'https://grocery-map-app.herokuapp.com/'
+    // let url = 'http://localhost:3000/'
+    const call = await fetch(url);
     const data = await call.json();
     console.log('your list', data);
     this.setState({

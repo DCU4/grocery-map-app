@@ -17,7 +17,8 @@ export class SingleList extends Component {
   showList = async () => {
     let id = this.props.listId;
     console.log('id', id);
-    let url = 'http://localhost:3000/' + id;
+    let url = 'https://grocery-map-app.herokuapp.com/' + id;
+    // let url = 'http://localhost:3000/' + id;
     const call = await fetch(url);
     const data = await call.json();
     console.log('single list', data);
@@ -38,7 +39,8 @@ export class SingleList extends Component {
     listItem.aisle = aisle;
     let id = e.currentTarget.dataset.listid;
     console.log(listItem)
-    let url = 'http://localhost:3000/' + id + '/item?_method=PUT';
+    let url = 'https://grocery-map-app.herokuapp.com/' + id + '/item?_method=PUT';
+    // let url = 'http://localhost:3000/' + id + '/item?_method=PUT';
     const call = await fetch(url, {
       method: 'POST',
       headers: {
@@ -57,7 +59,8 @@ export class SingleList extends Component {
     // save title
     let title = e.target.value;
     let id = e.target.id;
-    let url = 'http://localhost:3000/' + id + '/title?_method=PUT';
+    let url = 'https://grocery-map-app.herokuapp.com/' + id + '/title?_method=PUT';
+    // let url = 'http://localhost:3000/' + id + '/title?_method=PUT';
     const call = await fetch(url, {
       method: 'POST',
       headers: {

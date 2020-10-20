@@ -29,7 +29,9 @@ export class Search extends Component {
 
   getLocation = async () => {
     let locationId = this.props.locationId;
-    const call = await fetch(`http://localhost:3000/get-single-location`, {
+    let url = 'https://grocery-map-app.herokuapp.com/get-single-location'
+    // let url = 'http://localhost:3000/get-single-location'
+    const call = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,7 +52,9 @@ export class Search extends Component {
     let search = this.state.search;
     let locationId = this.props.locationId;
     event.preventDefault();
-    const call = await fetch(`http://localhost:3000/get-data`, {
+    let url = 'https://grocery-map-app.herokuapp.com/get-data'
+    // let url = 'http://localhost:3000/get-data'
+    const call = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

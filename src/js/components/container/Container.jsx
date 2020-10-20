@@ -52,7 +52,9 @@ class Container extends Component {
 
 
   getLocation = async () => {
-    const call = await fetch(`http://localhost:3000/get-location`, {
+    let url = 'https://grocery-map-app.herokuapp.com/get-location'
+    // let url = 'http://localhost:3000/get-location'
+    const call = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -76,7 +78,9 @@ class Container extends Component {
     // create new list 
     // open SingleList with Title already filled - first line, bold
     let locationId = e.currentTarget.id;
-    const call = await fetch(`http://localhost:3000/create-list`, {
+    let url = 'https://grocery-map-app.herokuapp.com/create-list'
+    // let url = 'http://localhost:3000/create-list'
+    const call = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
