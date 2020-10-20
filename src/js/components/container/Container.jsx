@@ -29,6 +29,28 @@ class Container extends Component {
     });
   }
 
+  // handle location search view
+  handleLocationSearchView = () => {
+    let locationSearch = this.state.locationSearch;
+    let handle = !locationSearch ? true : false;
+    this.setState({
+      locationSearch: handle,
+      singleListView: true
+    });
+  }
+
+  
+  handleListView = () => {
+    let singleListView = this.state.singleListView;
+    let handle = !singleListView ? true : false;
+    this.setState({
+      singleListView: handle,
+      locationSearch: false
+    });
+  }
+
+
+
   getLocation = async () => {
     const call = await fetch(`http://localhost:3000/get-location`, {
       method: 'POST',
@@ -45,15 +67,6 @@ class Container extends Component {
   }
 
   
-  // handle location search view
-  handleLocationSearchView = () => {
-    let locationSearch = this.state.locationSearch;
-    let handle = !locationSearch ? true : false;
-    this.setState({
-      locationSearch: handle,
-      singleListView: true
-    });
-  }
 
 
   // create list
@@ -75,19 +88,12 @@ class Container extends Component {
     
     data && this.setState({
       singleListView: true,
+      locationSearch: false,
       newList: data
     });
   }
 
 
-
-  handleListView = () => {
-    let singleListView = this.state.singleListView;
-    let handle = !singleListView ? true : false;
-    this.setState({
-      singleListView: handle
-    });
-  }
 
   showSingleNote = e => {
     console.log(e.currentTarget.id);
