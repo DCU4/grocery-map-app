@@ -33,6 +33,7 @@ export class LocationSearch extends Component {
       searching: false
     });
   }
+  
 
   handleChange = event => {
     this.setState({zipcode: event.target.value});

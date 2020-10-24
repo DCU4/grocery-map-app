@@ -89,11 +89,12 @@ class Container extends Component {
     });
     const data = await call.json();
     console.log('list created', data);
-    
+
     data && this.setState({
       singleListView: true,
       locationSearch: false,
-      newList: data
+      newList: data,
+      listId: data._id
     });
   }
 
