@@ -23,6 +23,10 @@ export class AllLists extends Component {
     });
   }
 
+  deleteList = (e) => {
+
+  }
+
   handleChange = () => {
     // this.props.onClick();
   }

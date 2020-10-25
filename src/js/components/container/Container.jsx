@@ -10,7 +10,6 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: '',
       search: '',
       singleListView: false,
       list: [],
@@ -39,7 +38,7 @@ class Container extends Component {
     });
   }
 
-  
+
   handleListView = () => {
     let singleListView = this.state.singleListView;
     let handle = !singleListView ? true : false;
@@ -51,30 +50,30 @@ class Container extends Component {
 
 
 
-  getLocation = async () => {
-    let url = 'https://grocery-map-app.herokuapp.com/get-location'
-    // let url = 'http://localhost:3000/get-location'
-    const call = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      // body: JSON.stringify({search:search})
-    });
-    const data = await call.json();
-    console.log('location', data);
-    // this.setState({
-    //   data: data
-    // });
-  }
+  // getLocation = async () => {
+  //   let url = 'https://grocery-map-app.herokuapp.com/get-location'
+  //   // let url = 'http://localhost:3000/get-location'
+  //   const call = await fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     // body: JSON.stringify({search:search})
+  //   });
+  //   const data = await call.json();
+  //   console.log('location', data);
+  //   // this.setState({
+  //   //   data: data
+  //   // });
+  // }
 
-  
+
 
 
   // create list
   createList = async (e) => {
     console.log('create list')
-    
+
     // create new list 
     // open SingleList with Title already filled - first line, bold
     let locationId = e.currentTarget.id;
@@ -85,7 +84,7 @@ class Container extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({locationId:locationId})
+      body: JSON.stringify({ locationId: locationId })
     });
     const data = await call.json();
     console.log('list created', data);
@@ -108,20 +107,8 @@ class Container extends Component {
     });
   }
 
-
- 
-
-
-
-  deleteFromList = (e) => {
-
-  }
-
-
-
   componentDidMount() {
-    console.log('mount');
-
+    console.log('mount container');
   }
 
   render() {
@@ -134,7 +121,7 @@ class Container extends Component {
     let singleListView = this.state.singleListView;
     return (
       <main>
-        <Header 
+        <Header
           singleListView={singleListView}
           addToList={addToList}
           createList={this.createList}
@@ -142,31 +129,26 @@ class Container extends Component {
           handleSearchView={this.handleSearchView}
           handleLocationSearchView={this.handleLocationSearchView}
         />
-        
-          
+
+
         {singleListView == true ? (
           locationSearch ? (
-          <LocationSearch 
-            createList={this.createList}
-          />
+            <LocationSearch
+              createList={this.createList}
+            />
+          ) : (
+              <SingleList
+                list={list}
+                listId={listId}
+                addToList={addToList}
+                newList={newList}
+              />
+            )
         ) : (
-        <SingleList
-          // data={data} 
-          list={list}
-          listId={listId}
-          addToList={addToList}
-          newList={newList}
-          />
-        )
-          
-        
-        ) : (
-
-          <AllLists 
-          showSingleNote={this.showSingleNote}
-          />
-        
-        )}
+            <AllLists
+              showSingleNote={this.showSingleNote}
+            />
+          )}
 
       </main>
 

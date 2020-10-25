@@ -5,7 +5,6 @@ export class SingleList extends Component {
 
   constructor(props) {
     super(props);
-    // this.handleChange = this.handleChange.bind(this);
     this.state = {
       list: '',
       title: ''
@@ -55,6 +54,10 @@ export class SingleList extends Component {
     });
   }
 
+  deleteFromList = (e) => {
+
+  }
+
   handleBlur = async (e) => {
     // save title
     let title = e.target.value;
@@ -73,15 +76,12 @@ export class SingleList extends Component {
   }
 
   handleChange = e => {
-
     this.setState({title: e.target.value});
   }
 
   handleFocus = e => {
-
     this.setState({title: ''});
   }
-
 
   componentDidMount() {
     this.showList();
