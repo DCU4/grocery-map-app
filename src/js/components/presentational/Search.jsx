@@ -107,6 +107,7 @@ export class Search extends Component {
     // console.log('search list', data.data);
     return (
       <div className="search-list">
+        <p>Editing: {this.props.title}</p>
         <form className="fade-in" id="search" onSubmit={this.getData}>
 
           <label htmlFor="search">Search {location.data.chain} in {location.data.address.city}, {location.data.address.state}</label>
@@ -119,6 +120,7 @@ export class Search extends Component {
 
               return (
                 <div className="product-wrapper fade-in" key={i} >
+                  
                   <p>Search Results</p>
                   <form data-listid={listId} className="product" onSubmit={this.props.addToList}>
                     <input type="hidden" name="item" value={d.description} />
