@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Search } from "../presentational/Search.jsx";
+import { Directions } from "../presentational/Directions.jsx";
 
 export class SingleList extends Component {
 
@@ -7,7 +8,8 @@ export class SingleList extends Component {
     super(props);
     this.state = {
       list: '',
-      title: ''
+      title: '',
+      directions: false
     }
   }
 
@@ -76,11 +78,17 @@ export class SingleList extends Component {
   }
 
   handleChange = e => {
-    this.setState({title: e.target.value});
+    this.setState({ title: e.target.value });
   }
 
   handleFocus = e => {
-    this.setState({title: ''});
+    this.setState({ title: '' });
+  }
+
+  getDirections = () => {
+    this.setState({
+      directions: true
+    })
   }
 
   componentDidMount() {
@@ -93,6 +101,7 @@ export class SingleList extends Component {
     let listId = this.props.listId
     let addToList = this.props.addToList;
     let newList = this.props.newList;
+    let directions = this.state.directions;
     list.list && list.list.sort((a, b) => a.aisle.split(':')[1] - b.aisle.split(':')[1])
     if (!list) {
       return <div className="spinner">Loading List...<span></span></div>;
@@ -103,52 +112,62 @@ export class SingleList extends Component {
     let month = date.getMonth();
     let day = date.getDate();
     return (
-      <div className="list-wrapper">
-        {addToList ? (
-          <p>Editing {list.title}</p>
-        ) : (
-            <div className="list-header">
-              <input
-                id={newList ? newList._id : listId}
-                type="text"
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
-                value={title}
-                onChange={this.handleChange}
-                placeholder={newList ? newList.title : (title != '' ? title : list.title)}
-              />
 
-              <p>{month+1}/{day}/{year}</p>
-            </div>
-          )}
+      <div className="list-container">
 
-        {addToList ? (
-          <Search
-            locationId={list.locationId}
-            listId={listId}
+        {directions ? (
+          <Directions 
             list={list}
-            addToList={this.addToList}
-            showList={this.showList}
           />
-        ) : (
-            <ul className="list">
-              <li className="item">
-                <span>Item</span>
-                <span>Aisle Number</span>
-              </li>
-              {list.list && list.list.length > 0 ? list.list.map((item, i) => {
-                let splitAisleText = item.aisle.split(':');
-                return (
-                  <li key={i} className="item">
-                    <span>{item.item}</span>
-                    <span>{splitAisleText[1]}</span>
+        ) :
+
+
+          addToList ? (
+            <Search
+              title={list.title}
+              locationId={list.locationId}
+              listId={listId}
+              list={list}
+              addToList={this.addToList}
+              showList={this.showList}
+            />
+          ) : (
+              <div className="list-wrapper">
+                <div className="list-header">
+                  <input
+                    id={newList ? newList._id : listId}
+                    type="text"
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    value={title}
+                    onChange={this.handleChange}
+                    placeholder={newList ? newList.title : (title != '' ? title : list.title)}
+                  />
+
+                  <p>{month + 1}/{day}/{year}</p>
+
+                </div>
+                <ul className="list">
+                  <li className="item">
+                    <span>Item</span>
+                    <span>Aisle Number</span>
                   </li>
-                );
-              }) : (
-                  <p>No items in your list</p>
-                )}
-            </ul>
-          )}
+                  {list.list && list.list.length > 0 ? list.list.map((item, i) => {
+                    let splitAisleText = item.aisle.split(':');
+                    return (
+                      <li key={i} className="item">
+                        <span>{item.item}</span>
+                        <span>{splitAisleText[1]}</span>
+                      </li>
+                    );
+                  }) : (
+                      <p>No items in your list</p>
+                    )}
+                  <p onClick={this.getDirections}>Directions</p>
+                </ul>
+              </div>
+            )}
+
       </div>
 
     );
