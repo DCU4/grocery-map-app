@@ -29,8 +29,9 @@ export class Header extends Component {
             </div>
           ) : (
               <div className="menu">
-                <strong>Your Lists</strong>
-                <p onClick={this.props.handleLocationSearchView}>New List</p>
+                <p>Account</p>
+                <strong>Lists</strong>
+                <p className="primary btn" onClick={this.props.handleLocationSearchView}>New List +</p>
               </div>
             )
           }

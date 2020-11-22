@@ -154,16 +154,25 @@ export class SingleList extends Component {
                   </li>
                   {list.list && list.list.length > 0 ? list.list.map((item, i) => {
                     let splitAisleText = item.aisle.split(':');
+                    let aisleNum;
+                    if (splitAisleText[1] == ' 0') { 
+                      aisleNum = 'Produce';
+                    } else if(splitAisleText[1] == ' 400') {
+                      aisleNum = 'Organic';
+                    } else { 
+                      aisleNum = splitAisleText[1];
+                    };
+
                     return (
                       <li key={i} className="item">
                         <span>{item.item}</span>
-                        <span>{splitAisleText[1]}</span>
+                        <span>{aisleNum}</span>
                       </li>
                     );
                   }) : (
                       <p>No items in your list</p>
                     )}
-                  <p onClick={this.getDirections}>Directions</p>
+                  {/* <p onClick={this.getDirections}>Directions</p> */}
                 </ul>
               </div>
             )}

@@ -17,12 +17,6 @@ export class Search extends Component {
   }
 
 
-  // to check search results based on the list you are adding to
-  getSingleListData = () => {
-    let listId = this.props.listId;
-
-  }
-
   // favorite items
 
   // previously added items 
@@ -51,6 +45,7 @@ export class Search extends Component {
     });
     let search = this.state.search;
     let locationId = this.props.locationId;
+
     event.preventDefault();
     let url = 'https://grocery-map-app.herokuapp.com/get-data';
     // let url = 'http://localhost:3000/get-data';
