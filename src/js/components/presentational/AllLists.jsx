@@ -36,6 +36,13 @@ export class AllLists extends Component {
     this.getYourLists();
   }
 
+  componentDidUpdate() {
+    let listItems = document.querySelectorAll('.list');
+    listItems.forEach((item,i) => {
+      item.style.animationDelay = .25*i+'s'; 
+    });
+  }
+
   render() {
     let lists = this.state.lists;
     lists && lists.lists.sort((a, b) => new Date(b.created) - new Date(a.created));
