@@ -1,3 +1,6 @@
 [submodule "api"]
 	path = api
 	url = https://git.heroku.com/grocery-map-app.git
+[submodule "grocery-map-app"]
+	path = grocery-map-app
+	url = https://git.heroku.com/grocery-map-app.git
