@@ -156,9 +156,9 @@ export class SingleList extends Component {
                     let splitAisleText = item.aisle.split(':');
                     let aisleNum;
                     if (splitAisleText[1] == ' 0') { 
-                      aisleNum = 'Produce';
+                      aisleNum = 'Produce Section';
                     } else if(splitAisleText[1] == ' 400') {
-                      aisleNum = 'Organic';
+                      aisleNum = 'Organic Section';
                     } else { 
                       aisleNum = splitAisleText[1];
                     };
