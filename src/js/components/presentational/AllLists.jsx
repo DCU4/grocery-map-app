@@ -39,7 +39,7 @@ export class AllLists extends Component {
   componentDidUpdate() {
     let listItems = document.querySelectorAll('.list');
     listItems.forEach((item,i) => {
-      item.style.animationDelay = .25*i+'s'; 
+      item.style.animationDelay = .05*i+'s'; 
     });
   }
 
