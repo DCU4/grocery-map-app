@@ -16,7 +16,8 @@ class Container extends Component {
       listId: '',
       addToList: false,
       locationSearch: false,
-      newList: ''
+      newList: '',
+      loggedIn: false
     }
   }
 
@@ -45,6 +46,14 @@ class Container extends Component {
     this.setState({
       singleListView: handle,
       locationSearch: false
+    });
+  }
+
+  handleLoginView = () => {
+    let loggedIn = this.state.loggedIn;
+    let handle = !loggedIn ? true : false;
+    this.setState({
+      singleListView: handle
     });
   }
 
@@ -119,8 +128,13 @@ class Container extends Component {
     let addToList = this.state.addToList;
     let locationSearch = this.state.locationSearch;
     let singleListView = this.state.singleListView;
+    let loggedIn = this.state.loggedIn;
+    let view = this.state.view;
     return (
       <main>
+        
+        {/* {!loggedIn && <Login />} */}
+        
         <Header
           singleListView={singleListView}
           addToList={addToList}
@@ -128,10 +142,10 @@ class Container extends Component {
           handleListView={this.handleListView}
           handleSearchView={this.handleSearchView}
           handleLocationSearchView={this.handleLocationSearchView}
-        />
+          />
 
 
-        {singleListView == true ? (
+          {singleListView == true ? (
           locationSearch ? (
             <LocationSearch
               createList={this.createList}
@@ -144,7 +158,7 @@ class Container extends Component {
                 newList={newList}
               />
             )
-        ) : (
+          ) : (
             <AllLists
               showSingleNote={this.showSingleNote}
             />
