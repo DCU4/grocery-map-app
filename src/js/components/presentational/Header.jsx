@@ -30,8 +30,8 @@ export class Header extends Component {
           ) : (
               <div className="menu">
                 <p>Account</p>
-                <strong>Lists</strong>
-                <p className="primary btn" onClick={this.props.handleLocationSearchView}>New List +</p>
+                <p><strong>Lists</strong></p>
+                <p onClick={this.props.handleLocationSearchView}>New List +</p>
               </div>
             )
           }
