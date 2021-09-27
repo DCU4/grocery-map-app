@@ -33,6 +33,7 @@ export class Search extends Component {
       body: JSON.stringify({ locationId: locationId })
     });
     const data = await call.json();
+    console.log('location', data);
     this._isMounted && 
     this.setState({
       location: data
@@ -99,13 +100,15 @@ export class Search extends Component {
       return <div className="spinner">Loading Location...<span></span></div>;
     }
 
-    // console.log('search list', data.data);
+    let chain = location.data.chain =='HART' ? 'Harris Teeter' : location.data.chain;
+    let state = location.data.address.state;
+    let city = location.data.address.city;
     return (
       <div className="search-list">
         <p>Editing: {this.props.title}</p>
         <form className="fade-in" id="search" onSubmit={this.getData}>
 
-          <label htmlFor="search">Search {location.data.chain} in {location.data.address.city}, {location.data.address.state}</label>
+          <label htmlFor="search">Search {chain} in {city}, {state}</label>
           <input value={this.state.value} type="search" name="search" onChange={this.handleChange} />
         </form>
         {data && data.data.length > 0 ?
