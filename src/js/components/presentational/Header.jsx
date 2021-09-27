@@ -3,14 +3,34 @@ import React, { Component } from "react";
 export class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      listTitle: ''
+    };
   }
+
+  showList = async () => {
+    let id = this.props.listId;
+    let url = 'https://grocery-map-app.herokuapp.com/' + id;
+    // let url = 'http://localhost:3000/' + id;
+    const call = await fetch(url);
+    const data = await call.json();
+    console.log('header showList', data);
+    this.setState({
+      listTitle: data.title
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.listId !== this.props.listId) {
+      this.showList();
+    }
+  }
+
+
 
   render() {
     let singleListView = this.props.singleListView;
     let addToList = this.props.addToList;
-    // we need to check if the yourlists is showing
-    // 
     return (
       <header>
           {singleListView ? (
@@ -18,7 +38,7 @@ export class Header extends Component {
               {addToList ? (
                 <div className="menu-items">
                   <strong onClick={this.props.handleSearchView}>View List</strong>
-                  {/* <p onClick={this.props.handleSearchView}>Add to this list</p> */}
+                  <strong>{this.state.listTitle}</strong>
                 </div>
               ) : (
                 <div className="menu-items">
