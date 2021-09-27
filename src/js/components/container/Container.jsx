@@ -144,26 +144,26 @@ class Container extends Component {
           handleLocationSearchView={this.handleLocationSearchView}
           />
 
-
-          {singleListView == true ? (
-          locationSearch ? (
-            <LocationSearch
-              createList={this.createList}
-            />
-          ) : (
-              <SingleList
-                list={list}
-                listId={listId}
-                addToList={addToList}
-                newList={newList}
+          <div className="container">
+            {singleListView == true ? (
+            locationSearch ? (
+              <LocationSearch
+                createList={this.createList}
               />
-            )
-          ) : (
-            <AllLists
-              showSingleNote={this.showSingleNote}
-            />
-          )}
-
+            ) : (
+                <SingleList
+                  list={list}
+                  listId={listId}
+                  addToList={addToList}
+                  newList={newList}
+                />
+              )
+            ) : (
+              <AllLists
+                showSingleNote={this.showSingleNote}
+              />
+            )}
+        </div>
       </main>
 
     );
