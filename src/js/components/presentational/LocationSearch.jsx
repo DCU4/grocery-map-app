@@ -39,6 +39,10 @@ export class LocationSearch extends Component {
     this.setState({zipcode: event.target.value});
   }
 
+  handleChangeLocationView = () => {
+    this.setState({locationData: false});
+  }
+
   render() {
     let locationData = this.state.locationData;
     let searching = this.state.searching;
@@ -56,12 +60,14 @@ export class LocationSearch extends Component {
           <input onChange={this.handleChange} name="zipcode" type="text"/>
         </form>
         ): (
-          <ul>
-          <p>Locations in {zipcode}</p>
+          <ul className="list">
+          <li className="item">
+            <span>Locations in <strong>{zipcode}</strong></span>
+            <span onClick={this.handleChangeLocationView}>Change location</span>
+          </li>
           {locationData.data.map((store,i) => (
-            // console.log(store)
-            <li onClick={this.props.createList} id={store.locationId} key={i}>
-              <span>{store.chain}</span>
+            <li className="item" onClick={this.props.createList} id={store.locationId} key={i}>
+              <span>{store.chain =='HART' ? 'Harris Teeter' : store.chain}</span>
               <span>{store.address.city}, {store.address.state}</span>
             </li>
           ))}
