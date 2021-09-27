@@ -149,8 +149,8 @@ export class SingleList extends Component {
                 </div>
                 <ul className="list">
                   <li className="item">
-                    <span>Item</span>
-                    <span>Aisle Number</span>
+                    <span>Items</span>
+                    <span>Aisle #</span>
                   </li>
                   {list.list && list.list.length > 0 ? list.list.map((item, i) => {
                     let splitAisleText = item.aisle.split(':');
@@ -170,7 +170,7 @@ export class SingleList extends Component {
                       </li>
                     );
                   }) : (
-                      <p>No items in your list</p>
+                    <li className="item jk">No items in your list</li>
                     )}
                   {/* <p onClick={this.getDirections}>Directions</p> */}
                 </ul>
