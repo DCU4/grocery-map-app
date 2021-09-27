@@ -105,7 +105,7 @@ export class Search extends Component {
     let city = location.data.address.city;
     return (
       <div className="search-list">
-        <p>Editing: {this.props.title}</p>
+        {/* <p>Editing: {this.props.title}</p> */}
         <form className="fade-in" id="search" onSubmit={this.getData}>
 
           <label htmlFor="search">Search {chain} in {city}, {state}</label>

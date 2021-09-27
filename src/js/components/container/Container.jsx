@@ -106,10 +106,7 @@ class Container extends Component {
     });
   }
 
-
-
   showSingleNote = e => {
-    console.log(e.currentTarget.id);
     this.setState({
       singleListView: true,
       listId: e.currentTarget.id
@@ -122,7 +119,7 @@ class Container extends Component {
 
   render() {
     // let data = this.state.data;
-    let list = this.state.list;
+    // let list = this.state.list;
     let listId = this.state.listId;
     let newList = this.state.newList;
     let addToList = this.state.addToList;
@@ -137,6 +134,7 @@ class Container extends Component {
         
         <Header
           singleListView={singleListView}
+          listId={listId}
           addToList={addToList}
           createList={this.createList}
           handleListView={this.handleListView}
@@ -152,7 +150,6 @@ class Container extends Component {
               />
             ) : (
                 <SingleList
-                  list={list}
                   listId={listId}
                   addToList={addToList}
                   newList={newList}

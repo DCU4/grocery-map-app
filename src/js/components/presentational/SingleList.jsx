@@ -17,7 +17,6 @@ export class SingleList extends Component {
 
   showList = async () => {
     let id = this.props.listId;
-    console.log('id', id);
     let url = 'https://grocery-map-app.herokuapp.com/' + id;
     // let url = 'http://localhost:3000/' + id;
     const call = await fetch(url);
@@ -27,7 +26,6 @@ export class SingleList extends Component {
       list: data,
       added: false
     });
-
   }
 
   addToList = async (e) => {
