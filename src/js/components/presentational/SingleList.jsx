@@ -30,12 +30,11 @@ export class SingleList extends Component {
 
   addToList = async (e) => {
     e.preventDefault();
-
-    let item = e.currentTarget.querySelector('.product-info:nth-of-type(2) p:nth-of-type(2)').innerText;
-    let aisle = e.currentTarget.querySelector('.product-info:nth-of-type(3) p:nth-of-type(2)').innerText;
     let listItem = {};
-    listItem.item = item;
-    listItem.aisle = aisle;
+    listItem.item = e.target.elements.productName.value;
+    listItem.aisle = e.target.elements.aisle.value;;
+    listItem.shelfNum = e.target.elements.shelfNum.value;
+    listItem.side = e.target.elements.side.value;
     let id = e.currentTarget.dataset.listid;
     console.log(listItem)
     let url = 'https://grocery-map-app.herokuapp.com/' + id + '/item?_method=PUT';
@@ -92,6 +91,13 @@ export class SingleList extends Component {
   componentDidMount() {
     this.showList();
   }
+
+
+
+  // open and close product info to show aisle side and shelf num
+  // or maybe show aisle side initially?
+
+
 
   render() {
     let list = this.state.list;
@@ -151,14 +157,13 @@ export class SingleList extends Component {
                     <span>Aisle #</span>
                   </li>
                   {list.list && list.list.length > 0 ? list.list.map((item, i) => {
-                    let splitAisleText = item.aisle.split(':');
                     let aisleNum;
-                    if (splitAisleText[1] == ' 0') { 
+                    if (item.aisle == ' 0') { 
                       aisleNum = 'Produce Section';
-                    } else if(splitAisleText[1] == ' 400') {
+                    } else if(item.aisle == ' 400') {
                       aisleNum = 'Organic Section';
                     } else { 
-                      aisleNum = splitAisleText[1];
+                      aisleNum = item.aisle;
                     };
 
                     return (
