@@ -34,10 +34,10 @@ export class Search extends Component {
     });
     const data = await call.json();
     console.log('location', data);
-    this._isMounted && 
-    this.setState({
-      location: data
-    });
+    this._isMounted &&
+      this.setState({
+        location: data
+      });
   }
 
   getData = async (event) => {
@@ -61,12 +61,13 @@ export class Search extends Component {
       })
     });
     const data = await call.json();
+    // we need more info
     console.log('products', data)
-    this._isMounted && 
-    this.setState({
-      data: data,
-      searching: false
-    });
+    this._isMounted &&
+      this.setState({
+        data: data,
+        searching: false
+      });
   }
 
 
@@ -100,7 +101,7 @@ export class Search extends Component {
       return <div className="spinner">Loading Location...<span></span></div>;
     }
 
-    let chain = location.data.chain =='HART' ? 'Harris Teeter' : location.data.chain;
+    let chain = location.data.chain == 'HART' ? 'Harris Teeter' : location.data.chain;
     let state = location.data.address.state;
     let city = location.data.address.city;
     return (
@@ -111,60 +112,72 @@ export class Search extends Component {
           <label htmlFor="search">Search {chain} in {city}, {state}</label>
           <input value={this.state.value} type="search" name="search" onChange={this.handleChange} />
         </form>
+        <p>Search Results</p>
         {data && data.data.length > 0 ?
 
           data.data.map((d, i) => {
             let found = list.list.some(l => l.item == d.description)
 
-              return (
-                <div className="product-wrapper fade-in" key={i} >
-                  
-                  <p>Search Results</p>
-                  <form data-listid={listId} className="product" onSubmit={this.props.addToList}>
-                    <input type="hidden" name="item" value={d.description} />
-                    <input type="hidden" name="aisle" value={d.aisleLocations[0] ? d.aisleLocations[0].number : ''} />
-                    <div className="product-info-wrapper ">
-                      <div className="product-info fade-in">
-                        <p>Brand:</p>
-                        <p>{d.brand}</p>
-                      </div>
-                      <div className="product-info fade-in">
-                        <p>Product:</p>
-                        <p>{handleExistence(d.description)}</p>
-                      </div>
+            return (
+              <div className="product-wrapper fade-in" key={i} >
 
-                      {d.aisleLocations[0] ?
-                        <div className="product-info fade-in">
-                          <p>Location: {handleExistence(d.aisleLocations[0].description)}</p>
-                          <p>Aisle Number: {handleExistence(d.aisleLocations[0].number)}</p>
-                          <p>Shelf Number: {handleExistence(d.aisleLocations[0].shelfNumber)}</p>
-                        </div>
-                        :
-                        <div className="product-info fade-in">
-                          <p>no aisle info</p>
-                        </div>
-                      }
-                      {found ? (
-
-                        <strong className="add-item fade-in">On My List</strong>
-                      ) : (
-
-                          <button><strong className="add-item fade-in">Add To List +</strong></button>
-                        )}
+                <form data-listid={listId} className="product" onSubmit={this.props.addToList}>
+                  <input type="hidden" name="productName" value={d.description} />
+                  <input type="hidden" name="aisle" value={d.aisleLocations[0] ? d.aisleLocations[0].number : ''} />
+                  <input type="hidden" name="shelfNum" value={d.aisleLocations[0] ? d.aisleLocations[0].shelfNumber : ''} />
+                  <input type="hidden" name="side" value={d.aisleLocations[0] ? d.aisleLocations[0].side : ''} />
+                  <div className="product-info-wrapper ">
+                    <div className="product-info fade-in">
+                      <p className="title">Brand:</p>
+                      <p>{d.brand}</p>
+                    </div>
+                    <div className="product-info fade-in">
+                      <p className="title">Product:</p>
+                      <p className="product-name">{handleExistence(d.description)}</p>
                     </div>
 
-                    <div className="product-image">
-                      {d.images.map((img, i) => {
-                        let src = img.sizes.filter(size => (size.size == 'xlarge'));
-                        return img.featured && src[0] &&
-                          <img key={i} src={src[0].url} />
+                    {d.aisleLocations[0] ?
+                      <div className="product-info fade-in">
+                        <p className="title">Location:</p>
+                        <div className="grid">
+                          {d.aisleLocations[0].description.includes(d.aisleLocations[0].number) ? (
+                            <p className="location">{handleExistence(d.aisleLocations[0].description)}</p>
+                          ) : (
+                            <>
+                              <p className="location">{handleExistence(d.aisleLocations[0].description)}</p>
+                              <p className="aisle-num">Aisle {handleExistence(d.aisleLocations[0].number)}</p>
+                            </>
+                          )}
+                          <p className="shelf-num">Shelf Number: {handleExistence(d.aisleLocations[0].shelfNumber)}</p>
+                          <p className="side">{d.aisleLocations[0].side === "L" ? 'Left Side' : 'Right Side'}</p>
+                        </div>
+                      </div>
+                      :
+                      <div className="product-info fade-in">
+                        <p>no aisle info</p>
+                      </div>
+                    }
+                    {found ? (
 
-                      })}
-                    </div>
+                      <p><strong className="add-item fade-in oml">On My List</strong></p>
+                    ) : (
 
-                  </form>
-                </div>
-              );
+                      <button><strong className="add-item fade-in">Add To List +</strong></button>
+                    )}
+                  </div>
+
+                  <div className="product-image">
+                    {d.images.map((img, i) => {
+                      let src = img.sizes.filter(size => (size.size == 'xlarge'));
+                      return img.featured && src[0] &&
+                        <img key={i} src={src[0].url} />
+
+                    })}
+                  </div>
+
+                </form>
+              </div>
+            );
           }
           ) : (
             data &&
