@@ -28,10 +28,10 @@ export class Directions extends Component {
         x: 0,
         y: 0
       },
-      itemPoints: {
+      itemPoints: [{
         x: 0,
         y: 0
-      },
+      }],
       aisleNums: []
     };
   }
