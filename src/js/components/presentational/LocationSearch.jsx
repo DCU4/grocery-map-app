@@ -62,13 +62,13 @@ export class LocationSearch extends Component {
         ): (
           <ul className="list">
           <li className="item">
-            <span>Locations in <strong>{zipcode}</strong></span>
-            <span onClick={this.handleChangeLocationView}>Change location</span>
+            <p>Locations in <strong>{zipcode}</strong></p>
+            <p onClick={this.handleChangeLocationView}>Change location</p>
           </li>
           {locationData.data.map((store,i) => (
             <li className="item" onClick={this.props.createList} id={store.locationId} key={i}>
-              <span>{store.chain =='HART' ? 'Harris Teeter' : store.chain}</span>
-              <span>{store.address.city}, {store.address.state}</span>
+              <p>{store.chain =='HART' ? 'Harris Teeter' : store.chain}</p>
+              <p>{store.address.city}, {store.address.state}</p>
             </li>
           ))}
           </ul>
