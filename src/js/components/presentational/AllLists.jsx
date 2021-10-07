@@ -63,9 +63,9 @@ export class AllLists extends Component {
 
             return (
               <li onClick={this.props.showSingleNote} id={list._id} key={i} className="list">
-                <span>{truncate(list.title)}</span>
-                <span>{month+1}/{day}/{year}</span>
-                {/* <span>Store</span> */}
+                <p>{truncate(list.title)}</p>
+                <p>{month+1}/{day}/{year}</p>
+                {/* <p>Store</p> */}
               </li>)
 
           }) : (
