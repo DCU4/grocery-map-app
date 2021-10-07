@@ -94,8 +94,7 @@ export class SingleList extends Component {
 
 
 
-  // open and close product info to show aisle side and shelf num
-  // or maybe show aisle side initially?
+  // open and close product info to show aisle side and maybe image of location
 
 
 
@@ -106,11 +105,11 @@ export class SingleList extends Component {
     let addToList = this.props.addToList;
     let newList = this.props.newList;
     let directions = this.state.directions;
-    list.list && list.list.sort((a, b) => a.aisle.split(':')[1] - b.aisle.split(':')[1])
     if (!list) {
       return <div className="spinner">Loading List...<span></span></div>;
     }
 
+    list.list && list.list.sort((a, b) => a.aisle - b.aisle);
     let date = new Date(newList ? newList.created : list.created)
     let year = date.getFullYear();
     let month = date.getMonth();
@@ -168,8 +167,11 @@ export class SingleList extends Component {
 
                     return (
                       <li key={i} className="item">
-                        <span>{item.item}</span>
-                        <span>{aisleNum}</span>
+                        <p>{item.item}</p>
+                        <p>
+                          <span className="aisle-num">{aisleNum}</span>
+                          <span className="item-side">{item.side === "L" ? 'Left Side' : 'Right Side'}</span>
+                        </p>
                       </li>
                     );
                   }) : (
