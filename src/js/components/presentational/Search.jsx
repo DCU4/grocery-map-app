@@ -116,8 +116,7 @@ export class Search extends Component {
         {data && data.data.length > 0 ?
 
           data.data.map((d, i) => {
-            let found = list.list.some(l => l.item == d.description)
-
+            let found = list.list.some(l => l.aisle == (d.aisleLocations[0] ? d.aisleLocations[0].number : ''))
             return (
               <div className="product-wrapper fade-in" key={i} >
 
