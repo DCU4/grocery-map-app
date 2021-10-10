@@ -60,18 +60,20 @@ export class SingleList extends Component {
   handleBlur = async (e) => {
     // save title
     let title = e.target.value;
-    let id = e.target.id;
-    let url = 'https://grocery-map-app.herokuapp.com/' + id + '/title?_method=PUT';
-    // let url = 'http://localhost:3000/' + id + '/title?_method=PUT';
-    const call = await fetch(url, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ title: title })
-    });
-    const data = await call.json();
-    console.log('updated title', data);
+    if (title != "") {
+      let id = e.target.id;
+      let url = 'https://grocery-map-app.herokuapp.com/' + id + '/title?_method=PUT';
+      // let url = 'http://localhost:3000/' + id + '/title?_method=PUT';
+      const call = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ title: title })
+      });
+      const data = await call.json();
+      console.log('updated title', data);
+    }
   }
 
   handleChange = e => {
@@ -96,6 +98,7 @@ export class SingleList extends Component {
 
   // open and close product info to show aisle side and maybe image of location
 
+  // tap item to show on map?
 
 
   render() {
@@ -140,7 +143,7 @@ export class SingleList extends Component {
                   <input
                     id={newList ? newList._id : listId}
                     type="text"
-                    onFocus={this.handleFocus}
+                    // onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                     value={title}
                     onChange={this.handleChange}
@@ -177,7 +180,7 @@ export class SingleList extends Component {
                   }) : (
                     <li className="item jk">No items in your list</li>
                     )}
-                  {/* <p onClick={this.getDirections}>Directions</p> */}
+                  <p onClick={this.getDirections}>Get Directions</p>
                 </ul>
               </div>
             )}
