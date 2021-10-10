@@ -14,7 +14,6 @@ export class Header extends Component {
     // let url = 'http://localhost:3000/' + id;
     const call = await fetch(url);
     const data = await call.json();
-    console.log('header showList', data);
     this.setState({
       listTitle: data.title
     });
@@ -25,8 +24,6 @@ export class Header extends Component {
       this.showList();
     }
   }
-
-
 
   render() {
     let singleListView = this.props.singleListView;
