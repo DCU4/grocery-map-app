@@ -18,6 +18,7 @@
 
 $black: #444;
 $white: #efefef;
+$green: #00D930;
 
 * {
   margin: 0;
@@ -194,12 +195,30 @@ form {
 
 .map-wrapper {
   position: relative;
+  overflow: hidden;
+  padding-top: 1em;
+  margin-top: 1em;
+  border: 2px solid;
 }
 
 svg {
   width: 100%;
   height: auto;
-  opacity: 0;
+  transform: scale(1) translate(0, 0);
+  transition: transform .2s ease;
+  
+}
+
+.marker {
+  position: absolute;
+  z-index: 10;
+  background-color: $green;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  &.active {
+    border: 2px solid black;
+  }
 }
 
 canvas {
