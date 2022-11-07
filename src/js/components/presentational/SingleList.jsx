@@ -155,7 +155,7 @@ export class SingleList extends Component {
                 </div>
                 <ul className="list">
                   <li className="item">
-                    <span>Items</span>
+                    <span>Item</span>
                     <span>Aisle #</span>
                   </li>
                   {list.list && list.list.length > 0 ? list.list.map((item, i) => {
