@@ -17,7 +17,7 @@ export class SingleList extends Component {
 
   showList = async () => {
     let id = this.props.listId;
-    let url = 'https://grocery-map-app.herokuapp.com/' + id;
+    let url = 'https://grocery-map-api.vercel.app/' + id;
     // let url = 'http://localhost:3000/' + id;
     const call = await fetch(url);
     const data = await call.json();
@@ -37,7 +37,7 @@ export class SingleList extends Component {
     listItem.side = e.target.elements.side.value;
     let id = e.currentTarget.dataset.listid;
     console.log(listItem)
-    let url = 'https://grocery-map-app.herokuapp.com/' + id + '/item?_method=PUT';
+    let url = 'https://grocery-map-api.vercel.app/' + id + '/item?_method=PUT';
     // let url = 'http://localhost:3000/' + id + '/item?_method=PUT';
     const call = await fetch(url, {
       method: 'POST',
@@ -62,7 +62,7 @@ export class SingleList extends Component {
     let title = e.target.value;
     if (title != "") {
       let id = e.target.id;
-      let url = 'https://grocery-map-app.herokuapp.com/' + id + '/title?_method=PUT';
+      let url = 'https://grocery-map-api.vercel.app/' + id + '/title?_method=PUT';
       // let url = 'http://localhost:3000/' + id + '/title?_method=PUT';
       const call = await fetch(url, {
         method: 'POST',

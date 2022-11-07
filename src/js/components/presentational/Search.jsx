@@ -23,7 +23,7 @@ export class Search extends Component {
 
   getLocation = async () => {
     let locationId = this.props.locationId;
-    let url = 'https://grocery-map-app.herokuapp.com/get-single-location'
+    let url = 'https://grocery-map-api.vercel.app/get-single-location'
     // let url = 'http://localhost:3000/get-single-location'
     const call = await fetch(url, {
       method: 'POST',
@@ -48,7 +48,7 @@ export class Search extends Component {
     let locationId = this.props.locationId;
 
     event.preventDefault();
-    let url = 'https://grocery-map-app.herokuapp.com/get-data';
+    let url = 'https://grocery-map-api.vercel.app/get-data';
     // let url = 'http://localhost:3000/get-data';
     const call = await fetch(url, {
       method: 'POST',

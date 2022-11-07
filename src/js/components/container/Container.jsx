@@ -60,7 +60,7 @@ class Container extends Component {
 
 
   // getLocation = async () => {
-  //   let url = 'https://grocery-map-app.herokuapp.com/get-location'
+  //   let url = 'https://grocery-map-api.vercel.app/get-location'
   //   // let url = 'http://localhost:3000/get-location'
   //   const call = await fetch(url, {
   //     method: 'POST',
@@ -86,7 +86,7 @@ class Container extends Component {
     // create new list 
     // open SingleList with Title already filled - first line, bold
     let locationId = e.currentTarget.id;
-    let url = 'https://grocery-map-app.herokuapp.com/create-list'
+    let url = 'https://grocery-map-api.vercel.app/create-list'
     // let url = 'http://localhost:3000/create-list'
     const call = await fetch(url, {
       method: 'POST',

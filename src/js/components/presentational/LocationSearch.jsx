@@ -17,7 +17,7 @@ export class LocationSearch extends Component {
       searching: true
     });
     let zipcode = this.state.zipcode;
-    let url = 'https://grocery-map-app.herokuapp.com/get-locations'
+    let url = 'https://grocery-map-api.vercel.app/get-locations'
     // let url = 'http://localhost:3000/get-locations'
     const call = await fetch(url, {
       method: 'POST',

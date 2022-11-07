@@ -10,7 +10,7 @@ export class Header extends Component {
 
   showList = async () => {
     let id = this.props.listId;
-    let url = 'https://grocery-map-app.herokuapp.com/' + id;
+    let url = 'https://grocery-map-api.vercel.app/' + id;
     // let url = 'http://localhost:3000/' + id;
     const call = await fetch(url);
     const data = await call.json();

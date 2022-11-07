@@ -13,7 +13,7 @@ export class AllLists extends Component {
   }
 
   getYourLists = async () => {
-    let url = 'https://grocery-map-app.herokuapp.com/'
+    let url = 'https://grocery-map-api.vercel.app/'
     // let url = 'http://localhost:3000/'
     const call = await fetch(url);
     const data = await call.json();
